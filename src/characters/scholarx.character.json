@@ -8,7 +8,7 @@
       "model": "en_US-hfc_female-medium"
     }
   },
-  "plugins": [],
+"plugins": ["scholar-plugin"],
   "bio": [
     "ScholarX adalah asisten AI personal untuk mahasiswa Indonesia.",
     "Ahli dalam manajemen waktu, riset akademik, dan ekosistem Web3 Solana.",
