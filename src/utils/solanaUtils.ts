@@ -1,28 +1,46 @@
-import { Connection, Keypair, PublicKey, LAMPORTS_PER_SOL, Transaction, SystemProgram, sendAndConfirmTransaction } from "@solana/web3.js";
+import { 
+    Connection, 
+    Keypair, 
+    PublicKey, 
+    LAMPORTS_PER_SOL, 
+    SystemProgram, 
+    Transaction, 
+    sendAndConfirmTransaction 
+} from "@solana/web3.js";
 
-// Kita pake Devnet (Uang Mainan/Gratis)
+// Kita pakai Devnet (Solana testing, gratis!)
 const connection = new Connection("https://api.devnet.solana.com", "confirmed");
 
+/**
+ * Fungsi untuk mengirim reward SOL Devnet ke mahasiswa
+ * @param studentWalletAddress Alamat wallet Solana mahasiswa
+ */
 export const sendStudentReward = async (studentWalletAddress: string) => {
     try {
+        // 1. Validasi alamat wallet
         const toPublicKey = new PublicKey(studentWalletAddress);
-        
-        // Di sini harusnya pake Private Key lu (disimpan di .env)
-        // Untuk testing, kita buat keypair baru (tapi ini gak akan ada isinya)
-        // Nanti kita bakal setup Wallet khusus buat "ScholarX Treasury"
+
+        // 2. Setup Wallet Pengirim (Treasury ScholarX)
+        // Note: Idealnya ini pakai Private Key dari .env
+        // Untuk sekarang, kita buat wallet baru setiap transaksi (hanya untuk simulasi)
         const fromKeypair = Keypair.generate(); 
 
-        console.log(`Mengirim reward ke: ${studentWalletAddress}...`);
-        
-        // Logic: Kirim 0.01 SOL Devnet sebagai simbolis 'XP'
-        // (Nanti kita ganti pake Token beneran kalau udah jago)
+        console.log(`[ScholarX] Memproses reward untuk: ${studentWalletAddress}...`);
+
+        // Simulasi pengiriman: Dalam Hackathon, kita tunjukkan logic-nya
+        // Karena fromKeypair baru dibuat, saldonya 0, jadi kita return simulasi sukses dulu
         return {
             success: true,
-            signature: "SIMULATED_TX_SIGNATURE_ON_DEVNET",
+            signature: "5m6y...ScholarXDevnetReward", // Ini simulasi signature
             amount: 0.01
         };
+
     } catch (error) {
-        console.error("Gagal kirim reward:", error);
-        return { success: false, error };
+        console.error("[ScholarX Error] Gagal kirim reward:", error);
+        return { 
+            success: false, 
+            signature: null, 
+            error: error instanceof Error ? error.message : String(error) 
+        };
     }
 };
